@@ -1,16 +1,22 @@
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class CrashDetector : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    CircleCollider2D playerHead;
+
     protected void Start()
     {
-        
+        playerHead = GetComponent<CircleCollider2D>();
     }
 
-    // Update is called once per frame
-    protected void Update()
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        if (collision.gameObject.CompareTag("Ground")
+            && playerHead.IsTouching(collision.collider))
+        {
+            collision.gameObject.GetComponent<SurfaceEffector2D>().enabled = false;
+            Debug.Log("Crash!");
+        }
     }
 }
