@@ -18,13 +18,13 @@ public class CrashDetector : MonoBehaviour
             && playerHead.IsTouching(collision.collider))
         {
             collision.gameObject.GetComponent<SurfaceEffector2D>().enabled = false;
-            Invoke(nameof(ReloadScene), 1);
+            Invoke(nameof(ReloadScene), ReloadSceneDelay);
             Debug.Log("Crash!");
         }
     }
 
     private void ReloadScene()
     {
-        SceneManager.LoadScene(ReloadSceneDelay);
+        SceneManager.LoadScene(0);
     }
 }
