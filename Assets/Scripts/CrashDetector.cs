@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.U2D;
 
 public class CrashDetector : MonoBehaviour
 {
+    [SerializeField]
+    protected float ReloadSceneDelay = 1;
     CircleCollider2D playerHead;
 
     protected void Start()
@@ -17,16 +18,13 @@ public class CrashDetector : MonoBehaviour
             && playerHead.IsTouching(collision.collider))
         {
             collision.gameObject.GetComponent<SurfaceEffector2D>().enabled = false;
+            Invoke(nameof(ReloadScene), 1);
             Debug.Log("Crash!");
         }
     }
 
-    protected void Update()
+    private void ReloadScene()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("Restart!");
-            SceneManager.LoadScene(0);
-        }
+        SceneManager.LoadScene(ReloadSceneDelay);
     }
 }

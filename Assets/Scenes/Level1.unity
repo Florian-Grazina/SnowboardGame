@@ -918,6 +918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 523b83d4930d64f4292485217719742d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ReloadSceneDelay: 2
 --- !u!61 &233015416
 BoxCollider2D:
   m_ObjectHideFlags: 0
