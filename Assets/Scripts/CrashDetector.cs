@@ -5,6 +5,8 @@ public class CrashDetector : MonoBehaviour
 {
     [SerializeField] protected float ReloadSceneDelay = 1;
     [SerializeField] protected ParticleSystem crashEffect;
+    [SerializeField] protected AudioClip crashSFX;
+    [SerializeField] protected AudioClip ouchSFX;
 
     CircleCollider2D playerHead;
 
@@ -21,6 +23,8 @@ public class CrashDetector : MonoBehaviour
             && playerHead.IsTouching(collision.collider)
             && !_hasCrashed)
         {
+            PlayCrashSound();
+
             crashEffect.Play();
             _hasCrashed = true;
             collision.gameObject.GetComponent<SurfaceEffector2D>().enabled = false;
@@ -31,5 +35,11 @@ public class CrashDetector : MonoBehaviour
     private void ReloadScene()
     {
         SceneManager.LoadScene(0);
+    }
+
+    private void PlayCrashSound()
+    {
+        GetComponent<AudioSource>().PlayOneShot(ouchSFX);
+        GetComponent<AudioSource>().PlayOneShot(crashSFX);
     }
 }
