@@ -10,8 +10,6 @@ public class CrashDetector : MonoBehaviour
 
     CircleCollider2D playerHead;
 
-    private bool _hasCrashed = false;
-
     protected void Start()
     {
         playerHead = GetComponent<CircleCollider2D>();
@@ -20,14 +18,11 @@ public class CrashDetector : MonoBehaviour
     protected void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground")
-            && playerHead.IsTouching(collision.collider)
-            && !_hasCrashed)
+            && playerHead.IsTouching(collision.collider))
         {
             PlayCrashSound();
-
             crashEffect.Play();
-            _hasCrashed = true;
-            collision.gameObject.GetComponent<SurfaceEffector2D>().enabled = false;
+            FindFirstObjectByType<PlayerController>().DisableControls();
             Invoke(nameof(ReloadScene), ReloadSceneDelay);
         }
     }

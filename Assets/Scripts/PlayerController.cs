@@ -9,7 +9,16 @@ public class PlayerController : MonoBehaviour
 
     protected new Rigidbody2D rigidbody2D;
     SurfaceEffector2D surfaceEffector2D;
+    private bool canMove = true;
 
+    #region public methods
+    public void DisableControls()
+    {
+        canMove = false;
+    }
+    #endregion
+
+    #region protected methods
     protected void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -18,10 +27,15 @@ public class PlayerController : MonoBehaviour
 
     protected void Update()
     {
-        RotatePlayer();
-        RespondToBoost();
+        if(canMove)
+        {
+            RotatePlayer();
+            RespondToBoost();
+        }
     }
+    #endregion
 
+    #region private methods
     private void RespondToBoost()
     {
         if(Input.GetKey(KeyCode.Space))
@@ -45,4 +59,5 @@ public class PlayerController : MonoBehaviour
             rigidbody2D.AddTorque(-torqueAmount);
         }
     }
+    #endregion
 }
